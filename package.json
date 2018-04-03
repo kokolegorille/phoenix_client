@@ -1,6 +1,34 @@
 {
   "name": "phoenix_client",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "src/index.js",
+  "scripts": {
+    "start": "NODE_ENV=dev webpack-dev-server --inline --content-base build/ --mode development",
+    "build:dev": "webpack --watch --mode development",
+    "build:prod": "webpack --progress --colors ---mode production",
+    "lint": "eslint src"
+  },
+  "author": "koko le gorille",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  }
 }
