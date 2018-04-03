@@ -1,16 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import 'babel-polyfill';
 
 import './app.css';
+import App from './views/app_view.js'
+import configureStore from './configure_store';
 
-const App = () => (
-  <h1>Hello world from React</h1>
-);
+const store = configureStore();
 
 // eslint-disable-next-line no-undef
 const app = document.getElementById('app');
 render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   app,
 );
