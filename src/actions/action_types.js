@@ -46,4 +46,34 @@ export const CHANNEL_CLOSED        = 'CHANNEL_CLOSED';
 export const SEND_COMMAND          = 'SEND_COMMAND';
 export const CONNECT_CHANNEL_ERROR = 'CONNECT_CHANNEL_ERROR';
 
+// Requests
+export const REQUESTS_RECEIVED = 'REQUESTS_RECEIVED';
+export const REQUEST_CREATED   = 'REQUEST_CREATED';
+export const REQUEST_CANCELLED = 'REQUEST_CANCELLED';
+export const REQUEST_ACCEPTED  = 'REQUEST_ACCEPTED';
+
+export const REQUEST_CREATED_ERROR   = 'REQUEST_CREATED_ERROR';
+export const REQUEST_CANCELLED_ERROR = 'REQUEST_CANCELLED_ERROR';
+export const REQUEST_ACCEPTED_ERROR  = 'REQUEST_ACCEPTED_ERROR';
+
+// Games & GameInfo
+export const GAMES_RECEIVED   = 'GAMES_RECEIVED';
+export const GAME_ADDED       = 'GAME_ADDED';
+export const GAME_REMOVED     = 'GAME_REMOVED';
+export const GAME_FORCE_QUIT  = 'GAME_FORCE_QUIT';
+export const JOIN_GAME        = 'JOIN_GAME';
+export const UPDATE_GAME_INFO = 'UPDATE_GAME_INFO';
+
+// GameState
+export const UPDATE_GAME_STATE = 'UPDATE_GAME_STATE';
+export const PLAY_MOVE_ERROR   = 'PLAY_MOVE_ERROR';
+export const PASS_ERROR        = 'PASS_ERROR';
+export const RESIGN_ERROR      = 'RESIGN_ERROR';
+
+//  Chat
+export const MESSAGE_CREATED         = 'MESSAGE_CREATED';
+export const MESSAGES_RECEIVED       = 'MESSAGES_RECEIVED';
+export const MESSAGE_CREATED_ERROR   = 'MESSAGE_CREATED_ERROR';
+export const MESSAGES_RECEIVED_ERROR = 'MESSAGES_RECEIVED_ERROR';
+
 /* eslint-enable no-multi-spaces */

@@ -4,8 +4,7 @@ import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reduxApp from './reducers';
-// import socketMiddleware from './middlewares/socket_middleware';
-// import urlChangerMiddleware from './middlewares/url_changer_middleware';
+import socketMiddleware from './middlewares/socket_middleware';
 
 // const __DEV__ = process.env.NODE_ENV !== 'production';
 const __DEV__ = true;
@@ -13,8 +12,7 @@ const __DEV__ = true;
 const configureStore = () => {
   const middlewares = [
     reduxThunk,
-    // socketMiddleware,
-    // urlChangerMiddleware,
+    socketMiddleware,
   ];
 
   if (__DEV__) {

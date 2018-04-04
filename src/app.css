@@ -7,7 +7,37 @@ body {
 
 a { text-decoration: none; }
 
+/* Base */
+.italic { font-style: italic; }
+.active { font-weight: bold;}
+
+.floatLeft { float: left; }
+.floatRight { float: right; }
+
+.center { text-align: center; }
+
+.shadow {
+  box-shadow: 2px 2px 2px 0 rgba(0,0,0,.16);
+}
+
 /* Layout */
+
+.header { 
+  overflow: hidden;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  padding-left: 1em;
+}
+
+.content-wrapper {
+  margin-top: 70px;
+  z-index: 2;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.content { flex: 1; }
 
 .flex-container {
   display: flex;
@@ -63,4 +93,35 @@ a { text-decoration: none; }
 .button:disabled {
   color: #ccc;
   cursor: not-allowed;
+}
+
+/* EXTRACT FROM BOOTSTRAP */
+/* Definition List */
+
+dl.dl-horizontal {
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+dl.dl-horizontal dt {
+  clear: left;
+  float: left;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;
+  font-weight: bold;
+}
+dl.dl-horizontal dd::before,
+dl.dl-horizontal dd::after {
+  content: " ";
+  display: table;
+}
+dl.dl-horizontal dd::after { clear: both; }
+dl.dl-horizontal dd { margin-left: 120px; }
+
+.list-unstyled {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

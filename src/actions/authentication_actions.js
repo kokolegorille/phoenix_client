@@ -17,6 +17,20 @@ const errorPayload = error => (
     error.toString()
 );
 
+// join dispatch after successful login or refresh
+const joinDispatch = (dispatch, userId) => {
+  dispatch({ type: types.OPEN_SOCKET });
+  dispatch({ type: types.JOIN_CHANNEL, topic: 'system' });
+  dispatch({ type: types.JOIN_CHANNEL, topic: `user:${userId}` });
+};
+
+// leave dispatch after successful logout
+const leaveDispatch = (dispatch, userId) => {
+  dispatch({ type: types.LEAVE_CHANNEL, topic: `user:${userId}` });
+  dispatch({ type: types.LEAVE_CHANNEL, topic: 'system' });
+  dispatch({ type: types.CLOSE_SOCKET });
+};
+
 // THUNK
 export const signinUser = ({ name, password }) => (dispatch) => {
   dispatch({ type: types.SIGNIN_USER_REQUEST, payload: { name, password } });
@@ -25,10 +39,14 @@ export const signinUser = ({ name, password }) => (dispatch) => {
   Api.signin({ name, password })
     .then((response) => {
       // - Save JWT token
-      const { token } = response.data;
+      const { token, user } = response.data;
       AuthService.saveToken(token);
 
-      dispatch({ type: types.OPEN_SOCKET });
+      // dispatch({ type: types.OPEN_SOCKET });
+      // dispatch({ type: types.JOIN_CHANNEL, topic: 'system' });
+      // dispatch({ type: types.JOIN_CHANNEL, topic: `user:${user.id}` });
+      joinDispatch(dispatch, user.id);
+      
       dispatch({ type: types.SIGNIN_USER_SUCCESS, payload: response.data });
     })
     .catch(error =>
@@ -47,10 +65,14 @@ export const signupUser = ({ name, email, password }) => (dispatch) => {
   Api.signup({ name, email, password })
     .then((response) => {
       // - Save JWT token
-      const { token } = response.data;
+      const { token, user } = response.data;
       AuthService.saveToken(token);
 
-      dispatch({ type: types.OPEN_SOCKET });
+      // dispatch({ type: types.OPEN_SOCKET });
+      // dispatch({ type: types.JOIN_CHANNEL, topic: 'system' });
+      // dispatch({ type: types.JOIN_CHANNEL, topic: `user:${user.id}` });
+      joinDispatch(dispatch, user.id);
+      
       dispatch({ type: types.SIGNUP_USER_SUCCESS, payload: response.data });
     })
     .catch(error =>
@@ -60,12 +82,16 @@ export const signupUser = ({ name, email, password }) => (dispatch) => {
 };
 
 // THUNK
-export const signoutUser = () => (dispatch) => {
+export const signoutUser = (userId) => (dispatch) => {
   Api.signout()
     .then((response) => {
       AuthService.removeToken();
 
-      dispatch({ type: types.CLOSE_SOCKET });
+      // dispatch({ type: types.LEAVE_CHANNEL, topic: `user:${userId}` });
+      // dispatch({ type: types.LEAVE_CHANNEL, topic: 'system' });
+      // dispatch({ type: types.CLOSE_SOCKET });
+      leaveDispatch(dispatch, userId);
+      
       dispatch({ type: types.SIGNOUT_USER_SUCCESS, payload: response.data });
     })
     .catch(error =>
@@ -87,10 +113,14 @@ export const refreshToken = () => (dispatch) => {
   Api.refreshToken()
     .then((response) => {
       // - Save JWT token
-      const { token } = response.data;
+      const { token, user } = response.data;
       AuthService.saveToken(token);
 
-      dispatch({ type: types.OPEN_SOCKET });
+      // dispatch({ type: types.OPEN_SOCKET });
+      // dispatch({ type: types.JOIN_CHANNEL, topic: 'system' });
+      // dispatch({ type: types.JOIN_CHANNEL, topic: `user:${user.id}` });
+      joinDispatch(dispatch, user.id);
+      
       dispatch({
         type: types.REFRESH_TOKEN_SUCCESS, payload: response.data,
       });

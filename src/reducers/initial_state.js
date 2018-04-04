@@ -13,11 +13,11 @@ const initialState = {
     signinError: null,
     signupError: null,
   },
-  // channels: {
-  //   connections: {},
-  //   connectionErrors: {},
-  // },
-  // presences: {},
+  channels: {
+    connections: {},
+    connectionErrors: {},
+  },
+  presences: {},
 };
 
 export default initialState;
