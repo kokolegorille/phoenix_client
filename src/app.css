@@ -1,1 +1,66 @@
-body { color:red; }
+body {
+  margin: 0;
+  padding: 0;  
+  color: #7f8c8d;
+  display: block;
+}
+
+a { text-decoration: none; }
+
+/* Layout */
+
+.flex-container {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Simple form */
+
+.input {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.input-element {
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  /* display: block; */
+  box-sizing: border-box;
+}
+
+.input-element:focus {
+  outline: none;
+  background-color: #ccc;
+}
+
+.error {
+  border: 1px solid red;
+  background-color: #FDA49A;
+}
+
+.button {
+  cursor: pointer;
+  font: inherit;
+  padding: 6px;
+  margin: 6px;
+  font-weight: bold;
+  width: 10em;
+}
+
+.button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}

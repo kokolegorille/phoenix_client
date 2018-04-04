@@ -3,4 +3,47 @@
 // Application
 export const APP_BOOTUP = 'APP_BOOTUP';
 
+// Authentication
+export const SIGNIN_USER_REQUEST = 'SIGNIN_USER_REQUEST';
+export const SIGNIN_USER_SUCCESS = 'SIGNIN_USER_SUCCESS';
+export const SIGNIN_USER_ERROR   = 'SIGNIN_USER_ERROR';
+
+export const CLEAR_SIGNIN_ERROR  = 'CLEAR_SIGNIN_ERROR';
+
+export const SIGNUP_USER_REQUEST = 'SIGNUP_USER_REQUEST';
+export const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS';
+export const SIGNUP_USER_ERROR   = 'SIGNUP_USER_ERROR';
+
+export const CLEAR_SIGNUP_ERROR  = 'CLEAR_SIGNUP_ERROR';
+
+export const SIGNOUT_USER_SUCCESS = 'SIGNOUT_USER_SUCCESS';
+
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_ERROR   = 'REFRESH_TOKEN_ERROR';
+
+export const AUTHENTICATE_FROM_TOKEN = 'AUTHENTICATE_FROM_TOKEN';
+
+// Presence
+export const DISPATCH_PRESENCE_STATE = 'DISPATCH_PRESENCE_STATE';
+export const DISPATCH_PRESENCE_DIFF  = 'DISPATCH_PRESENCE_DIFF';
+
+// Socket
+export const OPEN_SOCKET         = 'OPEN_SOCKET';
+export const CLOSE_SOCKET        = 'CLOSE_SOCKET';
+export const SOCKET_CONNECTED    = 'SOCKET_CONNECTED';
+export const SOCKET_DISCONNECTED = 'SOCKET_DISCONNECTED';
+export const SOCKET_ERROR        = 'SOCKET_ERROR';
+export const SOCKET_CLOSED       = 'SOCKET_CLOSED';
+
+// Channels
+export const JOIN_CHANNEL          = 'JOIN_CHANNEL';
+export const LEAVE_CHANNEL         = 'LEAVE_CHANNEL';
+export const CHANNEL_CONNECTED     = 'CHANNEL_CONNECTED';
+export const CHANNEL_DISCONNECTED  = 'CHANNEL_DISCONNECTED';
+export const CHANNEL_ERROR         = 'CHANNEL_ERROR';
+export const CHANNEL_CLOSED        = 'CHANNEL_CLOSED';
+export const SEND_COMMAND          = 'SEND_COMMAND';
+export const CONNECT_CHANNEL_ERROR = 'CONNECT_CHANNEL_ERROR';
+
 /* eslint-enable no-multi-spaces */

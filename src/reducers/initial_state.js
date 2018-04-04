@@ -6,13 +6,13 @@ const initialState = {
     isFetching: false,
     socketStatus: 'disconnected',
   },
-  // authentication: {
-  //   isAuthenticated: false,
-  //   currentUser: null,
-  //   token: null,
-  //   signInError: null,
-  //   signUpError: null,
-  // },
+  authentication: {
+    isAuthenticated: false,
+    currentUser: null,
+    token: null,
+    signinError: null,
+    signupError: null,
+  },
   // channels: {
   //   connections: {},
   //   connectionErrors: {},
