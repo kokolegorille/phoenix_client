@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta content="yes" name="apple-mobile-web-app-capable"/>
     <meta content="chrome=1" http-equiv="X-UA-Compatible"/>
-		<meta name="description" content="kogo joseki dictionary react viewer">
-		<meta name="keywords" content="kogo joseki dictionary react viewer go learn javascript spa materialize">
+		<meta name="description" content="Phoenix client w/ React Redux">
+		<meta name="keywords" content="Phoenix client React Redux">
 		<meta name="author" content="Koko le gorille">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

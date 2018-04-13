@@ -13,7 +13,7 @@ const Properties = ({object, recursive, exclude}) => {
       case "object":
         return (recursive) ?
           <Properties object={value} /> :
-          JSON.stringify(value) 
+          JSON.stringify(value);
       default:
         return value;
     }

@@ -8,10 +8,21 @@ const setLobbyChannel = (dispatch, socket) => {
   const topic = 'lobby';
   const channel = socket.channel(topic, {});
 
+  // const presence = new Presence(channel);
+
   const listBy = (id, { metas: [first, ...rest] }) =>
     Object.assign({}, first, { id, count: rest.length + 1 });
 
   const render = presences => (Presence.list(presences, listBy));
+
+  // // Presences
+  // presenceOnSync(() => {
+  //   const presences = presence.list(listBy);
+  //   return dispatch({
+  //     type: types.DISPATCH_PRESENCE_STATE,
+  //     payload: { topic, presences },
+  //   });
+  // });
 
   // Presences
   channel.on('presence_state', (payload) => {

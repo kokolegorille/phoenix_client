@@ -24,6 +24,7 @@ import LoadingDots from '../components/loading_dots';
 import Properties from '../components/properties';
 import SigninForm from '../components/signin_form';
 import SignupForm from '../components/signup_form';
+import PresenceList from '../components/presences/presence_list';
 
 const propTypes = {
   appBootup: PropTypes.func.isRequired,
@@ -38,6 +39,7 @@ const propTypes = {
   application: PropTypes.object.isRequired,
   authentication: PropTypes.object.isRequired,
   channels: PropTypes.object.isRequired,
+  presences: PropTypes.object.isRequired,
 };
 
 class App extends Component {
@@ -68,6 +70,25 @@ class App extends Component {
     const { channels } = this.props;
     const { connections } = channels;
     return connections.hasOwnProperty(topic);
+  }
+  
+  _renderPresences = () => {
+    const { presences } = this.props;
+    const presenceKeys = Object.keys(presences);
+    if (!presences || presenceKeys.length < 1) { return; };
+    return (
+      <div>
+        <h2>Presences</h2>
+        <ul>
+          {presenceKeys.map(key => (
+            <li key={`presences:${key}`}>
+              {key}
+              <PresenceList presences={presences[key]} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
   
   render() {
@@ -103,13 +124,13 @@ class App extends Component {
     return (
       <main>
         <div className="header">
+          <h1>Phoenix Client w/ React</h1>
           { isFetching && <LoadingDots interval={100} dots={20} /> }
         </div>
         <div className="content-wrapper">
-          <div className='flex-container column'>
-            <div className='panel'>
-              <h1>Phoenix Client w/ React</h1>
-              <div className='flex-container'>
+          <div className='flex-container'>
+            <div className='large panel'>
+              <div className='flex-container column'>
                 <div>
                   <h2>Application</h2>
                   <Properties object={displayApplication} />
@@ -122,6 +143,7 @@ class App extends Component {
                   <h2>Channels</h2>
                   <Properties object={channels.connections} />
                 </div>
+                { this._renderPresences() }
               </div>
             </div>
             <div className='panel'>
@@ -182,10 +204,12 @@ const mapStateToProps = ({
   application,
   authentication,
   channels,
+  presences,
 }) => ({
   application,
   authentication,
   channels,
+  presences,
 });
 
 const mapDispatchToProps = dispatch => (

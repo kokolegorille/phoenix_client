@@ -48,6 +48,19 @@ a { text-decoration: none; }
   flex-direction: column;
 }
 
+.panel { 
+  flex: 1; 
+  border: solid 1px;
+  padding: 1em;
+  margin-right: 1em;
+}
+
+.panel:last-child {
+  margin-right: 0;
+}
+
+.large {flex: 2;}
+
 /* Simple form */
 
 .input {
