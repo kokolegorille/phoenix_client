@@ -16,37 +16,41 @@ const ROOT_PATH = path.resolve(__dirname);
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const BUILD_PATH = path.resolve(ROOT_PATH, './build');
 
-// Use next version to be compatible with Webpack 4!
-// 'extract-text-webpack-plugin': '^4.0.0-alpha.0'
-// https://github.com/webpack-contrib/extract-text-webpack-plugin/tree/next
-// https://github.com/webpack/webpack/blob/master/examples/code-splitted-css-bundle/README.md
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const VENDOR_LIBS = [
+  'react', 'react-dom'
+]
+
+// Webpack plugins
+// Replace ExtractTextPlugin with MiniCssExtractPlugin
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let commonPlugins = [
-  new ExtractTextPlugin({
-    filename: 'css/styles.css',
-    allChunks: true,
-  }),
-  // Pass __DEV__ to processed files
-  // https://github.com/kriasoft/react-starter-kit/issues/1085
-  new Webpack.DefinePlugin({
-    __DEV__: __DEV__,
-  }),
-  // Webpack dev server
-  new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: './src/index.template',
-    inject: 'body'
-  }),
-]
-
-module.exports = {
+module.exports = (env, options) => ({
   context: __dirname,
   devtool: __DEV__ ? 'inline-sourcemap' : false,
+  optimization: {
+    // https://github.com/webpack/webpack/issues/6357
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /react|bootstrap|font-awesome/,
+          chunks: "initial",
+          name: "vendor",
+          enforce: true
+        }
+      }
+    },
+    minimizer: [
+      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
+      new OptimizeCSSAssetsPlugin({})
+    ],
+  },
   entry: {
     bundle: SRC_PATH + '/index',
+    vendor: VENDOR_LIBS,
   },
   output: {
     path: BUILD_PATH,
@@ -54,9 +58,20 @@ module.exports = {
     filename: 'js/[name].js',
     chunkFilename: '[name].bundle.js',
   },
-  plugins: __DEV__ ? commonPlugins : [
-    ...commonPlugins,
-    // Add production plugins here!
+  plugins: [
+    // Pass __DEV__ to processed files
+    // https://github.com/kriasoft/react-starter-kit/issues/1085
+    new Webpack.DefinePlugin({ __DEV__: (env && env.dev) }),
+
+    new MiniCssExtractPlugin({ filename: './css/app.css' }),
+      
+    // Webpack dev server
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.template',
+      inject: 'body'
+    }),
+    new Webpack.HotModuleReplacementPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -70,30 +85,51 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'react', 'stage-0'],
+          // Babel 8 removed stage-x!
+          // presets: ['env', 'react', 'stage-0'],
+          presets: [
+            '@babel/preset-env', '@babel/react',
+            {
+              plugins: [
+                '@babel/plugin-proposal-class-properties'
+              ]
+            },
+          ],
         },
       },
       // Load stylesheets
       {
-        test: /(\.css)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader',
-        }),
+        test: /\.(scss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader",
+        ]
       },
+
       // Load images
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        loader: 'file-loader',
+        test: /\.(png|svg|jpg|gif)(\?.*$|$)/,
+        loader: 'url-loader?limit=10000',
       },
       // Load fonts
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        loader: 'file-loader',
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?(\?.*$|$)/,
+        use: 'url-loader?&limit=10000&name=/fonts/[name].[ext]',
+      },
+      {
+        test: /\.(eot|ttf|otf)?(\?.*$|$)/,
+        loader: 'file-loader?&limit=10000&name=/fonts/[name].[ext]',
       },
     ],
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    compress: true,
+    open: true,
+    hot: true,
+    // https://github.com/webpack/webpack-dev-server/issues/882
+    // To fix invalid host origin header
+    disableHostCheck: true,
   },
-};
+});
