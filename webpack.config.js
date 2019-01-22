@@ -8,7 +8,7 @@
 
 // process.env.NODE_ENV are set to production or development (only in built code, not in config)
 // FIX: Set NODE_ENV in the script too.
-const debug = process.env.NODE_ENV !== 'production';
+const __DEV__ = process.env.NODE_ENV !== 'production';
 
 const Webpack = require('webpack');
 const path = require('path');
@@ -32,7 +32,7 @@ let commonPlugins = [
   // Pass __DEV__ to processed files
   // https://github.com/kriasoft/react-starter-kit/issues/1085
   new Webpack.DefinePlugin({
-    __DEV__: debug,
+    __DEV__: __DEV__,
   }),
   // Webpack dev server
   new HtmlWebpackPlugin({
@@ -44,7 +44,7 @@ let commonPlugins = [
 
 module.exports = {
   context: __dirname,
-  devtool: debug ? 'inline-sourcemap' : false,
+  devtool: __DEV__ ? 'inline-sourcemap' : false,
   entry: {
     bundle: SRC_PATH + '/index',
   },
@@ -54,7 +54,7 @@ module.exports = {
     filename: 'js/[name].js',
     chunkFilename: '[name].bundle.js',
   },
-  plugins: debug ? commonPlugins : [
+  plugins: __DEV__ ? commonPlugins : [
     ...commonPlugins,
     // Add production plugins here!
   ],

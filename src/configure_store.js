@@ -6,8 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxApp from './reducers';
 import socketMiddleware from './middlewares/socket_middleware';
 
-// const __DEV__ = process.env.NODE_ENV !== 'production';
-const __DEV__ = true;
+const __DEV__ = process.env.NODE_ENV !== 'production';
 
 const configureStore = () => {
   const middlewares = [
@@ -16,7 +15,7 @@ const configureStore = () => {
   ];
 
   if (__DEV__) {
-    middlewares.push(createLogger());
+    middlewares.push(createLogger({collapsed: true, diff: true}));
   }
 
   const store = createStore(
