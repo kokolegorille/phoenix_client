@@ -3,8 +3,8 @@ import * as types from '../actions/action_types';
 const setUserChannel = (dispatch, socket, topic) => {
   const channel = socket.channel(topic, {});
 
-  channel.on('join_game', payload =>
-    dispatch({ type: types.JOIN_GAME, payload }));
+  // channel.on('join_game', payload =>
+  //   dispatch({ type: types.JOIN_GAME, payload }));
 
   // Join
   if (channel.state !== 'joined') {
